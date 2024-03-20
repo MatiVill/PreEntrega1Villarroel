@@ -33,13 +33,19 @@ function obtenerCursosPorNivel(nivel) {
   return cursosPorNivel[nivel] || [];
 }
 
-const nivelUsuario = prompt("¿Cuál es tu nivel de jiu-jitsu?");
-const cursosDisponibles = obtenerCursosPorNivel(nivelUsuario);
-if (cursosDisponibles.length > 0) {
-  console.log("Los cursos disponibles para el nivel " + [nivelUsuario] + " son:");
-  cursosDisponibles.forEach(curso => {
-    console.log([curso.nombre] + " " + [curso.horario]);
-  });
-} else {
-  console.log("Lo siento, no hay cursos disponibles para el nivel " + [nivelUsuario]);
-}
+let nivelUsuario;
+let cursosDisponibles;
+
+do {
+  nivelUsuario = prompt("Indica tu nivel de Jiu Jitsu (Básico, Intermedio o Avanzado)");
+  cursosDisponibles = obtenerCursosPorNivel(nivelUsuario);
+  
+  if (!cursosDisponibles.length) {
+    alert("El nivel de Jiu Jitsu ingresado no es válido. Por favor, ingresa un nivel válido.");
+  }
+} while (!cursosDisponibles.length);
+
+console.log("Los cursos disponibles para el nivel " + nivelUsuario + " son:");
+cursosDisponibles.forEach(curso => {
+  console.log(curso.nombre + " " + curso.horario);
+});
